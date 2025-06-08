@@ -49,15 +49,14 @@ def strict[T, **P](func: Callable[P, T]) -> Callable[P, T]:
                     "Проверка аргумента '%s' (значение: %s) на соответствие типу %s", name, value, type_hints[name]
                 )
                 if not isinstance(value, type_hints[name]):
-                    if not isinstance(value, type_hints[name]):
-                        error_msg = "Аргумент '%s' должен быть типа %s, а не %s" % (
-                            name,
-                            type_hints[name].__name__,
-                            type(value).__name__,
-                        )
+                    error_msg = "Аргумент '%s' должен быть типа %s, а не %s" % (
+                        name,
+                        type_hints[name].__name__,
+                        type(value).__name__,
+                    )
 
-                        log.error(error_msg)
-                        raise TypeError(error_msg)
+                    log.error(error_msg)
+                    raise TypeError(error_msg)
 
         log.debug("Проверка типов для %s завершена успешно", func.__name__)
         result = func(*args, **kwargs)
